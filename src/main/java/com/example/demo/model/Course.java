@@ -6,11 +6,12 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "course")
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Course {
 
     @Id
@@ -24,6 +25,7 @@ public class Course {
     private String category;
 
     @ManyToOne
+    @JoinColumn(name = "instructor_id")
     private User instructor;
 
     private LocalDateTime createdAt;

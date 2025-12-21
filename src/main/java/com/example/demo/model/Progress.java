@@ -6,8 +6,9 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "progress")
 @Getter
-@Setter   // ✅ VERY IMPORTANT
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -18,13 +19,17 @@ public class Progress {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
+    @JoinColumn(name = "lesson_id")
     private MicroLesson microLesson;
 
     private String status;
+
     private Integer progressPercent;
+
     private LocalDateTime lastAccessedAt;
 
     @PrePersist
