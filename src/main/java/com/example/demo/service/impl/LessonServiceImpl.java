@@ -15,26 +15,32 @@ public class LessonServiceImpl implements LessonService {
     private final MicroLessonRepository lessonRepo;
     private final CourseRepository courseRepo;
 
-    public LessonServiceImpl(MicroLessonRepository lessonRepo, CourseRepository courseRepo) {
+    public LessonServiceImpl(MicroLessonRepository lessonRepo,
+                             CourseRepository courseRepo) {
         this.lessonRepo = lessonRepo;
         this.courseRepo = courseRepo;
     }
 
     @Override
     public MicroLesson addLesson(Long courseId, MicroLesson lesson) {
-        Course course = courseRepo.findById(courseId).orElseThrow();
+        Course course = courseRepo.findById(courseId)
+                .orElseThrow(() -> new RuntimeException("Course not found"));
+
         lesson.setCourse(course);
         return lessonRepo.save(lesson);
     }
 
     @Override
     public MicroLesson updateLesson(Long lessonId, MicroLesson lesson) {
-        MicroLesson existing = lessonRepo.findById(lessonId).orElseThrow();
+        MicroLesson existing = lessonRepo.findById(lessonId)
+                .orElseThrow(() -> new RuntimeException("Lesson not found"));
+
         existing.setTitle(lesson.getTitle());
         existing.setDurationMinutes(lesson.getDurationMinutes());
         existing.setContentType(lesson.getContentType());
         existing.setDifficulty(lesson.getDifficulty());
         existing.setTags(lesson.getTags());
+
         return lessonRepo.save(existing);
     }
 
@@ -49,6 +55,7 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     public MicroLesson getLesson(Long lessonId) {
-        return lessonRepo.findById(lessonId).orElseThrow();
+        return lessonRepo.findById(lessonId)
+                .orElseThrow(() -> new RuntimeException("Lesson not found with id " + lessonId));
     }
 }
