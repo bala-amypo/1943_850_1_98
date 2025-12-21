@@ -2,10 +2,12 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.time.LocalDate;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,14 +21,9 @@ public class MicroLesson {
     private Course course;
 
     private String title;
-
     private Integer durationMinutes;
-
     private String contentType;
-
     private String difficulty;
-
     private String tags;
-
     private LocalDate publishDate;
 }

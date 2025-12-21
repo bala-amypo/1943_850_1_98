@@ -2,10 +2,12 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,15 +21,15 @@ public class Course {
 
     private String description;
 
+    private String category;
+
     @ManyToOne
     private User instructor;
-
-    private String category;
 
     private LocalDateTime createdAt;
 
     @PrePersist
-    public void onCreate() {
+    void onCreate() {
         createdAt = LocalDateTime.now();
     }
 }

@@ -2,10 +2,12 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,15 +24,11 @@ public class Progress {
     private MicroLesson microLesson;
 
     private String status;
-
     private Integer progressPercent;
-
     private LocalDateTime lastAccessedAt;
 
-    private Double score;
-
     @PrePersist
-    public void onAccess() {
+    void onAccess() {
         lastAccessedAt = LocalDateTime.now();
     }
 }
