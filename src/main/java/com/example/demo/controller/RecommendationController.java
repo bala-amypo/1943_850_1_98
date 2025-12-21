@@ -9,30 +9,27 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/recommendations")
-@Tag(name = "Recommendation Controller")
+@Tag(name = "Recommendations")
 public class RecommendationController {
 
-    private final RecommendationService recommendationService;
+    private final RecommendationService service;
 
-    public RecommendationController(RecommendationService recommendationService) {
-        this.recommendationService = recommendationService;
+    public RecommendationController(RecommendationService service) {
+        this.service = service;
     }
 
-    // POST /recommendations/generate/{userId}
     @PostMapping("/generate/{userId}")
-    public Recommendation generateRecommendation(@PathVariable Long userId) {
-        return recommendationService.generate(userId);
+    public Recommendation generate(@PathVariable Long userId) {
+        return service.generate(userId);
     }
 
-    // GET /recommendations/latest/{userId}
     @GetMapping("/latest/{userId}")
-    public Recommendation getLatestRecommendation(@PathVariable Long userId) {
-        return recommendationService.getLatest(userId);
+    public Recommendation latest(@PathVariable Long userId) {
+        return service.getLatest(userId);
     }
 
-    // GET /recommendations/user/{userId}
     @GetMapping("/user/{userId}")
-    public List<Recommendation> getUserRecommendations(@PathVariable Long userId) {
-        return recommendationService.getAll(userId);
+    public List<Recommendation> list(@PathVariable Long userId) {
+        return service.getAll(userId);
     }
 }

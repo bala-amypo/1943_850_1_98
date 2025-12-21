@@ -9,33 +9,30 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/progress")
-@Tag(name = "Progress Controller")
+@Tag(name = "Progress")
 public class ProgressController {
 
-    private final ProgressService progressService;
+    private final ProgressService service;
 
-    public ProgressController(ProgressService progressService) {
-        this.progressService = progressService;
+    public ProgressController(ProgressService service) {
+        this.service = service;
     }
 
-    // POST /progress/{userId}/{lessonId}
     @PostMapping("/{userId}/{lessonId}")
-    public Progress recordProgress(@PathVariable Long userId,
-                                   @PathVariable Long lessonId,
-                                   @RequestBody Progress progress) {
-        return progressService.recordProgress(userId, lessonId, progress);
+    public Progress record(@PathVariable Long userId,
+                           @PathVariable Long lessonId,
+                           @RequestBody Progress progress) {
+        return service.recordProgress(userId, lessonId, progress);
     }
 
-    // GET /progress/{userId}/{lessonId}
     @GetMapping("/{userId}/{lessonId}")
-    public Progress getProgress(@PathVariable Long userId,
-                                @PathVariable Long lessonId) {
-        return progressService.getProgress(userId, lessonId);
+    public Progress get(@PathVariable Long userId,
+                        @PathVariable Long lessonId) {
+        return service.getProgress(userId, lessonId);
     }
 
-    // GET /progress/user/{userId}
     @GetMapping("/user/{userId}")
     public List<Progress> getUserProgress(@PathVariable Long userId) {
-        return progressService.getUserProgress(userId);
+        return service.getUserProgress(userId);
     }
 }
