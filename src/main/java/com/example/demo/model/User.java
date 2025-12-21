@@ -2,13 +2,15 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "users")
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class User {
 
     @Id
@@ -20,17 +22,12 @@ public class User {
     @Column(unique = true)
     private String email;
 
-    private String password;
-
     private String role;
-
-    private String preferredLearningStyle;
 
     private LocalDateTime createdAt;
 
     @PrePersist
     public void onCreate() {
-        createdAt = LocalDateTime.now();
-        if (role == null) role = "LEARNER";
+        this.createdAt = LocalDateTime.now();
     }
 }
