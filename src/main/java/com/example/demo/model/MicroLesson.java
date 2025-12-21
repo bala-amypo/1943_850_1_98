@@ -7,10 +7,10 @@ import java.time.LocalDate;
 
 @Entity
 @Getter
-@Setter
-@Builder
+@Setter   // ✅ REQUIRED
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class MicroLesson {
 
     @Id

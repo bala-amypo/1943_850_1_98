@@ -7,10 +7,10 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Setter
-@Builder
+@Setter   // ✅ VERY IMPORTANT
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Progress {
 
     @Id

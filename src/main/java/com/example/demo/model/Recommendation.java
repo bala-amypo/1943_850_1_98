@@ -8,9 +8,9 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder   // ✅ REQUIRED
 public class Recommendation {
 
     @Id
