@@ -6,8 +6,9 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "micro_lesson")   // ✅ FIXED (no hyphen)
 @Getter
-@Setter   // ✅ REQUIRED
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -18,12 +19,18 @@ public class MicroLesson {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "course_id")
     private Course course;
 
     private String title;
+
     private Integer durationMinutes;
+
     private String contentType;
+
     private String difficulty;
+
     private String tags;
+
     private LocalDate publishDate;
 }
