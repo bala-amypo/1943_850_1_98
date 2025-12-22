@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder   // ✅ REQUIRED
+@Builder   
 public class Recommendation {
 
     @Id
