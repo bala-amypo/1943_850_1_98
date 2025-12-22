@@ -18,21 +18,21 @@ public class LessonController {
         this.lessonService = lessonService;
     }
 
-    // POST /lessons/course/{courseId}
+   
     @PostMapping("/course/{courseId}")
     public MicroLesson addLesson(@PathVariable Long courseId,
                                  @RequestBody MicroLesson lesson) {
         return lessonService.addLesson(courseId, lesson);
     }
 
-    // PUT /lessons/{lessonId}
+    
     @PutMapping("/{lessonId}")
     public MicroLesson updateLesson(@PathVariable Long lessonId,
                                     @RequestBody MicroLesson lesson) {
         return lessonService.updateLesson(lessonId, lesson);
     }
 
-    // GET /lessons/search
+    
     @GetMapping("/search")
     public List<MicroLesson> searchLessons(
             @RequestParam(required = false) String tags,
@@ -42,7 +42,7 @@ public class LessonController {
         return lessonService.searchLessons(tags, difficulty, contentType);
     }
 
-    // GET /lessons/{lessonId}
+    
     @GetMapping("/{lessonId}")
     public MicroLesson getLesson(@PathVariable Long lessonId) {
         return lessonService.getLesson(lessonId);
