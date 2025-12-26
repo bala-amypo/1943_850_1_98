@@ -88,13 +88,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- ✅ Mockito Inline (IMPORTANT for robustness) -->
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-inline</artifactId>
-            <version>5.10.0</version>
-            <scope>test</scope>
-        </dependency>
 
     </dependencies>
 
