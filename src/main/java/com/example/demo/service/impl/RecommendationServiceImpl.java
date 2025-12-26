@@ -1,22 +1,26 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.Recommendation;
+import com.example.demo.entity.Recommendation;
 import com.example.demo.repository.RecommendationRepository;
-import com.example.demo.service.RecommendationService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
-public class RecommendationServiceImpl implements RecommendationService {
+public class RecommendationServiceImpl {
 
-    private final RecommendationRepository recommendationRepository;
+    private final RecommendationRepository repository;
 
-    public RecommendationServiceImpl(RecommendationRepository recommendationRepository) {
-        this.recommendationRepository = recommendationRepository;
+    public RecommendationServiceImpl(RecommendationRepository repository) {
+        this.repository = repository;
     }
 
-    @Override
-    public Recommendation getLatestRecommendation(Long userId) {
-        return recommendationRepository.findTopByOrderByGeneratedAtDesc()
-                .orElseThrow(() -> new RuntimeException("No recommendations found"));
+    public Recommendation create(String content) {
+
+        Recommendation r = new Recommendation();
+        r.setContent(content);
+        r.setGeneratedAt(LocalDateTime.now());
+
+        return repository.save(r);
     }
 }
