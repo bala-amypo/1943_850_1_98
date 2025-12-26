@@ -1,23 +1,20 @@
 package com.example.demo.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import java.util.List;
 
 @Configuration
 public class SwaggerConfig {
 
-    /**
-     * Minimal OpenAPI configuration.
-     * No effect on test execution.
-     */
     @Bean
-    public OpenAPI demoOpenAPI() {
+    public OpenAPI customOpenAPI() {
         return new OpenAPI()
-                .info(new Info()
-                        .title("Demo Learning Platform API")
-                        .version("1.0")
-                        .description("API documentation"));
-    }
+                // You need to change the port as per your server
+                .servers(List.of(
+                        new Server().url("https://9244.408procr.amypo.ai/")
+                ));
+        }
 }
