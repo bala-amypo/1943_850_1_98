@@ -100,33 +100,31 @@
     </dependencies>
 
     <build>
-        <plugins>
+    <plugins>
 
-            <!-- ✅ Compiler (FIXED) -->
-            <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-surefire-plugin</artifactId>
-         <version>3.2.5</version>
-    <configuration>
-        <!-- Enable TestNG without testng.xml -->
-        <testNGArtifactName>org.testng:testng</testNGArtifactName>
-    </configuration>
-    </plugin>   
+        <!-- ✅ Compiler -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.11.0</version>
+            <configuration>
+                <source>${java.version}</source>
+                <target>${java.version}</target>
+            </configuration>
+        </plugin>
 
+        <!-- ✅ Surefire (TestNG without testng.xml) -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.2.5</version>
+            <configuration>
+                <testNGArtifactName>org.testng:testng</testNGArtifactName>
+            </configuration>
+        </plugin>
 
-            <!-- ✅ Surefire for TestNG -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.5</version>
-                <configuration>
-                    <suiteXmlFiles>
-                        <suiteXmlFile>testng.xml</suiteXmlFile>
-                    </suiteXmlFiles>
-                </configuration>
-            </plugin>
+    </plugins>
+</build>
 
-        </plugins>
-    </build>
 
 </project>
