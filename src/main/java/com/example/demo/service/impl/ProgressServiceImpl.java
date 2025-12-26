@@ -7,38 +7,31 @@ import java.util.List;
 
 public class ProgressServiceImpl {
 
-    private final ProgressRepository progressRepo;
+    private final ProgressRepository repo;
     private final UserRepository userRepo;
     private final MicroLessonRepository lessonRepo;
 
-    public ProgressServiceImpl(ProgressRepository progressRepo,
-                               UserRepository userRepo,
-                               MicroLessonRepository lessonRepo) {
-        this.progressRepo = progressRepo;
-        this.userRepo = userRepo;
-        this.lessonRepo = lessonRepo;
+    public ProgressServiceImpl(ProgressRepository r, UserRepository u, MicroLessonRepository l) {
+        this.repo = r;
+        this.userRepo = u;
+        this.lessonRepo = l;
     }
 
-    public Progress recordProgress(Long userId, Long lessonId, Progress input) {
-        User user = userRepo.findById(userId)
-                .orElseThrow(RuntimeException::new);
-        MicroLesson lesson = lessonRepo.findById(lessonId)
-                .orElseThrow(RuntimeException::new);
+    public Progress recordProgress(Long userId, Long lessonId, Progress incoming) {
+        User u = userRepo.findById(userId).orElseThrow(RuntimeException::new);
+        MicroLesson m = lessonRepo.findById(lessonId).orElseThrow(RuntimeException::new);
 
-        Progress p = progressRepo
-                .findByUserIdAndMicroLessonId(userId, lessonId)
-                .orElse(new Progress());
+        Progress p = repo.findByUserIdAndMicroLessonId(userId, lessonId)
+                .orElse(Progress.builder().user(u).microLesson(m).build());
 
-        p.setUser(user);
-        p.setMicroLesson(lesson);
-        p.setStatus(input.getStatus());
-        p.setProgressPercent(input.getProgressPercent());
-        p.setScore(input.getScore());
+        p.setStatus(incoming.getStatus());
+        p.setProgressPercent(incoming.getProgressPercent());
+        p.setScore(incoming.getScore());
 
-        return progressRepo.save(p);
+        return repo.save(p);
     }
 
     public List<Progress> getUserProgress(Long userId) {
-        return progressRepo.findByUserIdOrderByLastAccessedAtDesc(userId);
+        return repo.findByUserIdOrderByLastAccessedAtDesc(userId);
     }
 }

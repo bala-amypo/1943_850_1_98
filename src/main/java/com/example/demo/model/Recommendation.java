@@ -1,12 +1,19 @@
+package com.example.demo.model;
+
+import jakarta.persistence.*;
+import lombok.*;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 @Entity
-@Data
-@Builder
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Recommendation {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -19,6 +26,6 @@ public class Recommendation {
 
     @PrePersist
     public void prePersist() {
-        this.generatedAt = LocalDateTime.now();
+        generatedAt = LocalDateTime.now();
     }
 }

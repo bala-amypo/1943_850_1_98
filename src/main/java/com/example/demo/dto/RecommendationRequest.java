@@ -1,8 +1,11 @@
 package com.example.demo.dto;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class RecommendationRequest {
     private String difficulty;
     private String tags;
