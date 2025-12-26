@@ -1,28 +1,25 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
 
-@Entity
+import java.util.List;
+
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity
 public class MicroLesson {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title;
-
     private String contentType;
-
     private String difficulty;
+    private int durationMinutes;
 
-    private String tags;
-
-    private Integer durationMinutes;
+    @ElementCollection
+    private List<String> tags;
 
     @ManyToOne
     private Course course;

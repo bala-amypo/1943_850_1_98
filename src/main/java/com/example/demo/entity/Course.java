@@ -1,32 +1,19 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
 
-import java.time.LocalDateTime;
-
-@Entity
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity
 public class Course {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title;
-
     private String description;
 
     @ManyToOne
     private User instructor;
-
-    private LocalDateTime createdAt;
-
-    @PrePersist
-    public void prePersist() {
-        this.createdAt = LocalDateTime.now();
-    }
 }
