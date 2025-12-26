@@ -1,8 +1,8 @@
 package com.example.demo.config;
 
-import io.swagger.v3.oas.model.OpenAPI;
-import io.swagger.v3.oas.model.info.Info;
-import io.swagger.v3.oas.model.servers.Server;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,9 +17,11 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("Demo API")
                         .version("1.0")
-                        .description("Demo Spring Boot API with Swagger"))
+                        .description("Demo Spring Boot API"))
                 .servers(List.of(
-                        new Server().url("https://9244.408procr.amypo.ai/").description("Local Server")
+                        new Server()
+                                .url("https://9244.408procr.amypo.ai/")
+                                .description("Local Server")
                 ));
     }
 }
