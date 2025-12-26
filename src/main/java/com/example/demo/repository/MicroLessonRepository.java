@@ -7,7 +7,5 @@ import java.util.List;
 
 public interface MicroLessonRepository extends JpaRepository<MicroLesson, Long> {
 
-    List<MicroLesson> findByTagsContainingAndDifficultyContainingAndContentTypeContaining(
-            String tags, String difficulty, String contentType
-    );
+    List<MicroLesson> findByFilters(String tags, String difficulty, String contentType);
 }
