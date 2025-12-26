@@ -12,7 +12,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <!-- ✅ Spring Boot Parent (VERY IMPORTANT) -->
+    <!-- ✅ Spring Boot Parent -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -26,53 +26,55 @@
 
     <dependencies>
 
-        <!-- ✅ Spring Boot Core -->
+        <!-- ================= CORE ================= -->
+
+        <!-- Spring Boot Core -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
-        <!-- ✅ Spring Web (Controllers) -->
+        <!-- Spring Web (Controllers) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- ✅ Spring Data JPA (interfaces only, no DB needed) -->
+        <!-- Spring Data JPA (no DB required) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
-        <!-- ✅ Spring Security Crypto (BCrypt) -->
+        <!-- Spring Security Crypto (BCryptPasswordEncoder) -->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-crypto</artifactId>
         </dependency>
 
-        <!-- ✅ Servlet API -->
+        <!-- Servlet API -->
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- ✅ JSON (DTO serialization) -->
+        <!-- Jackson (DTO JSON support) -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
 
-        <!-- ✅ Lombok -->
+        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- ================= TEST DEPENDENCIES ================= -->
+        <!-- ================= TEST ================= -->
 
-        <!-- ✅ TestNG -->
+        <!-- TestNG -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -80,7 +82,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- ✅ Mockito Core -->
+        <!-- Mockito -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
@@ -88,13 +90,12 @@
             <scope>test</scope>
         </dependency>
 
-
     </dependencies>
 
     <build>
         <plugins>
 
-            <!-- ✅ Compiler -->
+            <!-- ✅ Compiler (FIXED) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -102,12 +103,6 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </path>
-                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
 
