@@ -2,7 +2,6 @@ package com.example.demo.service.impl;
 
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
-
 import java.util.List;
 
 public class ProgressServiceImpl {
@@ -12,7 +11,9 @@ public class ProgressServiceImpl {
     private final MicroLessonRepository lessonRepo;
 
     public ProgressServiceImpl(ProgressRepository p, UserRepository u, MicroLessonRepository m) {
-        this.repo = p; this.userRepo = u; this.lessonRepo = m;
+        this.repo = p;
+        this.userRepo = u;
+        this.lessonRepo = m;
     }
 
     public Progress recordProgress(Long userId, Long lessonId, Progress p) {
@@ -25,7 +26,6 @@ public class ProgressServiceImpl {
             p.setMicroLesson(m);
             return repo.save(p);
         }
-
         existing.setStatus(p.getStatus());
         existing.setProgressPercent(p.getProgressPercent());
         existing.setScore(p.getScore());

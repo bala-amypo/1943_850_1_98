@@ -1,9 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.Recommendation;
-import com.example.demo.repository.RecommendationRepository;
-import com.example.demo.repository.UserRepository;
-
+import com.example.demo.repository.*;
 import java.util.List;
 
 public class RecommendationServiceImpl {
@@ -12,7 +10,8 @@ public class RecommendationServiceImpl {
     private final UserRepository userRepo;
 
     public RecommendationServiceImpl(RecommendationRepository r, UserRepository u, Object ignore) {
-        this.repo = r; this.userRepo = u;
+        this.repo = r;
+        this.userRepo = u;
     }
 
     public Recommendation getLatestRecommendation(Long userId) {

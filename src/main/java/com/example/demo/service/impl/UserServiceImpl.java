@@ -15,13 +15,14 @@ public class UserServiceImpl {
     private final JwtUtil jwtUtil;
 
     public UserServiceImpl(UserRepository r, BCryptPasswordEncoder e, JwtUtil j) {
-        this.repo = r; this.encoder = e; this.jwtUtil = j;
+        this.repo = r;
+        this.encoder = e;
+        this.jwtUtil = j;
     }
 
     public User register(User user) {
-        if (user == null) throw new RuntimeException("Invalid user");
-        if (repo.existsByEmail(user.getEmail())) throw new RuntimeException("Duplicate email");
-
+        if (user == null) throw new RuntimeException();
+        if (repo.existsByEmail(user.getEmail())) throw new RuntimeException();
         user.setPassword(encoder.encode(user.getPassword()));
         if (user.getRole() == null) user.setRole("LEARNER");
         return repo.save(user);
@@ -30,7 +31,6 @@ public class UserServiceImpl {
     public AuthResponse login(String email, String password) {
         User u = repo.findByEmail(email).orElseThrow(RuntimeException::new);
         if (!encoder.matches(password, u.getPassword())) throw new RuntimeException();
-
         String token = jwtUtil.generateToken(new HashMap<>(), email);
         return new AuthResponse(token, u.getId(), u.getEmail(), u.getRole());
     }

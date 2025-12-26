@@ -1,10 +1,7 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.Course;
-import com.example.demo.model.MicroLesson;
-import com.example.demo.repository.CourseRepository;
-import com.example.demo.repository.MicroLessonRepository;
-
+import com.example.demo.model.*;
+import com.example.demo.repository.*;
 import java.util.List;
 
 public class LessonServiceImpl {
@@ -13,7 +10,8 @@ public class LessonServiceImpl {
     private final CourseRepository courseRepo;
 
     public LessonServiceImpl(MicroLessonRepository r, CourseRepository c) {
-        this.repo = r; this.courseRepo = c;
+        this.repo = r;
+        this.courseRepo = c;
     }
 
     public MicroLesson addLesson(Long courseId, MicroLesson m) {
