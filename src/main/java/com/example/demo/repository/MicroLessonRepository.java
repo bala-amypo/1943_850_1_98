@@ -1,42 +1,9 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.User;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.Optional;
-
-public interface UserRepository extends JpaRepository<User, Long> {
-
-    Optional<User> findByEmail(String email);
-}
-
-package com.example.demo.repository;
-
-import com.example.demo.model.Course;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface CourseRepository extends JpaRepository<Course, Long> {
-}
-package com.example.demo.repository;
-
 import com.example.demo.model.MicroLesson;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
+@Repository
 public interface MicroLessonRepository extends JpaRepository<MicroLesson, Long> {
-
-    @Query("""
-        SELECT l FROM MicroLesson l
-        WHERE (:tag IS NULL OR l.tags LIKE %:tag%)
-          AND (:difficulty IS NULL OR l.difficulty = :difficulty)
-          AND (:type IS NULL OR l.contentType = :type)
-    """)
-    List<MicroLesson> findByFilters(
-            @Param("tag") String tag,
-            @Param("difficulty") String difficulty,
-            @Param("type") String type
-    );
 }
