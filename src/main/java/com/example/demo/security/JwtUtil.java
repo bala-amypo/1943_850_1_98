@@ -5,7 +5,7 @@ import java.util.Map;
 public class JwtUtil {
 
     public String generateToken(Map<String, Object> claims, String subject) {
-        return "dummy";
+        return "token";
     }
 
     public boolean validateToken(String token) {

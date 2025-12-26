@@ -1,36 +1,46 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.*;
-import com.example.demo.repository.*;
+import com.example.demo.model.Course;
+import com.example.demo.model.User;
+import com.example.demo.repository.CourseRepository;
+import com.example.demo.repository.UserRepository;
 
 public class CourseServiceImpl {
 
-    private final CourseRepository courseRepo;
-    private final UserRepository userRepo;
+    private final CourseRepository courseRepository;
+    private final UserRepository userRepository;
 
-    public CourseServiceImpl(CourseRepository c, UserRepository u) {
-        this.courseRepo = c;
-        this.userRepo = u;
+    public CourseServiceImpl(CourseRepository courseRepository,
+                             UserRepository userRepository) {
+        this.courseRepository = courseRepository;
+        this.userRepository = userRepository;
     }
 
     public Course createCourse(Course course, Long instructorId) {
-        User u = userRepo.findById(instructorId).orElseThrow(RuntimeException::new);
-        if (!("INSTRUCTOR".equals(u.getRole()) || "ADMIN".equals(u.getRole())))
+        User instructor = userRepository.findById(instructorId)
+                .orElseThrow(RuntimeException::new);
+
+        if (!"INSTRUCTOR".equals(instructor.getRole()) && !"ADMIN".equals(instructor.getRole()))
             throw new RuntimeException();
-        if (courseRepo.existsByTitleAndInstructorId(course.getTitle(), instructorId))
+
+        if (courseRepository.existsByTitleAndInstructorId(course.getTitle(), instructorId))
             throw new RuntimeException();
-        course.setInstructor(u);
-        return courseRepo.save(course);
+
+        course.setInstructor(instructor);
+        return courseRepository.save(course);
     }
 
-    public Course updateCourse(Long id, Course upd) {
-        Course c = courseRepo.findById(id).orElseThrow(RuntimeException::new);
-        c.setTitle(upd.getTitle());
-        c.setDescription(upd.getDescription());
-        return courseRepo.save(c);
+    public Course updateCourse(Long id, Course update) {
+        Course existing = courseRepository.findById(id)
+                .orElseThrow(RuntimeException::new);
+
+        existing.setTitle(update.getTitle());
+        existing.setDescription(update.getDescription());
+        return courseRepository.save(existing);
     }
 
     public Course getCourse(Long id) {
-        return courseRepo.findById(id).orElseThrow(RuntimeException::new);
+        return courseRepository.findById(id)
+                .orElseThrow(RuntimeException::new);
     }
 }

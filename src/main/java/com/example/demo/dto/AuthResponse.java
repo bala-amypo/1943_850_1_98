@@ -2,7 +2,7 @@ package com.example.demo.dto;
 
 import lombok.*;
 
-@Getter @Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthResponse {
