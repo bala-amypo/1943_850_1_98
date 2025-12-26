@@ -1,32 +1,31 @@
-package com.example.demo.controller;
+package com.example.demo.dto;
 
-import com.example.demo.dto.RecommendationRequest;
-import com.example.demo.model.Course;
-import com.example.demo.service.impl.RecommendationServiceImpl;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+public class RecommendationRequest {
 
-import java.util.List;
+    private Long userId;
+    private String category;
 
-@RestController
-@RequestMapping("/recommendations")
-@RequiredArgsConstructor
-@Tag(name = "5. Recommendations", description = "Personalized course recommendations")
-public class RecommendationController {
+    public RecommendationRequest() {
+    }
 
-    private final RecommendationServiceImpl recommendationService;
+    public RecommendationRequest(Long userId, String category) {
+        this.userId = userId;
+        this.category = category;
+    }
 
-    @PostMapping
-    @Operation(summary = "Get course recommendations for a user")
-    public ResponseEntity<List<Course>> recommend(@RequestBody RecommendationRequest request) {
-        return ResponseEntity.ok(
-                recommendationService.getRecommendations(
-                        request.getUserId(),
-                        request.getCategory()
-                )
-        );
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
