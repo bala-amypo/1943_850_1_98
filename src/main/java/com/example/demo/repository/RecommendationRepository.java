@@ -7,6 +7,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface RecommendationRepository extends JpaRepository<Recommendation, Long> {
-    List<Recommendation> findByUserIdAndGeneratedAtBetween(Long userId, LocalDateTime from, LocalDateTime to);
+
     List<Recommendation> findByUserIdOrderByGeneratedAtDesc(Long userId);
+
+    List<Recommendation> findByUserIdAndGeneratedAtBetween(
+            Long userId,
+            LocalDateTime from,
+            LocalDateTime to
+    );
 }
