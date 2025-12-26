@@ -1,12 +1,13 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
-import java.util.List;
-
-@Data
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class MicroLesson {
 
     @Id
@@ -16,10 +17,8 @@ public class MicroLesson {
     private String title;
     private String contentType;
     private String difficulty;
+    private String tags;
     private int durationMinutes;
-
-    @ElementCollection
-    private List<String> tags;
 
     @ManyToOne
     private Course course;
