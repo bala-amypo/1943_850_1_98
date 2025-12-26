@@ -5,12 +5,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class SimpleStatusServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().write("OK");
+        resp.setStatus(200);
+        resp.setContentType("text/plain");
+
+        PrintWriter writer = resp.getWriter(); // may throw IOException (tested)
+        writer.write("Servlet Alive");
     }
 }
