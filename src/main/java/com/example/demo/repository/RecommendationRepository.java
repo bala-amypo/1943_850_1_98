@@ -1,11 +1,18 @@
 package com.example.demo.repository;
 
-import com.example.demo.entity.Recommendation;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.demo.model.Recommendation;
+import java.time.LocalDateTime;
+import java.util.List;
 
-import java.util.Optional;
+public interface RecommendationRepository {
 
-public interface RecommendationRepository extends JpaRepository<Recommendation, Long> {
+    List<Recommendation> findByUserIdOrderByGeneratedAtDesc(Long userId);
 
-    Optional<Recommendation> findTopByOrderByGeneratedAtDesc();
+    List<Recommendation> findByUserIdAndGeneratedAtBetween(
+            Long userId,
+            LocalDateTime start,
+            LocalDateTime end
+    );
+
+    Recommendation save(Recommendation recommendation);
 }
