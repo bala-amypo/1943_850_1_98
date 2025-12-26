@@ -1,20 +1,12 @@
-package com.example.demo.model;
-
-import jakarta.persistence.*;
-import lombok.*;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
 @Entity
-@Getter
-@Setter
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Progress {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @ManyToOne
@@ -23,11 +15,10 @@ public class Progress {
     @ManyToOne
     private MicroLesson microLesson;
 
-    private Integer progressPercent;
     private String status;
-    private BigDecimal score;
-
+    private Integer progressPercent;
     private LocalDateTime lastAccessedAt;
+    private BigDecimal score;
 
     @PrePersist
     public void prePersist() {

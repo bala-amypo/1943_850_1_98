@@ -1,28 +1,21 @@
-package com.example.demo.model;
-
-import jakarta.persistence.*;
-import lombok.*;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
 @Entity
-@Getter
-@Setter
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Recommendation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
-    private Long userId;
+    @ManyToOne
+    private User user;
+
+    private LocalDateTime generatedAt;
     private String recommendedLessonIds;
     private String basisSnapshot;
     private BigDecimal confidenceScore;
-
-    private LocalDateTime generatedAt;
 
     @PrePersist
     public void prePersist() {
