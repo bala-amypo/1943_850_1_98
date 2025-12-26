@@ -1,4 +1,3 @@
-
 package com.example.demo.repository;
 
 import com.example.demo.entity.Recommendation;
@@ -12,5 +11,3 @@ public interface RecommendationRepository extends JpaRepository<Recommendation, 
 
     Optional<Recommendation> findTopByOrderByGeneratedAtDesc();
 }
-
-
