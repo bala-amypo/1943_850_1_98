@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,18 +10,17 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Course {
+public class User {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private String title;
+    private String email;
 
-    private String description;
+    private String password;
 
-    @ManyToOne
-    private User instructor;
+    private String role;
 
     private LocalDateTime createdAt;
 
