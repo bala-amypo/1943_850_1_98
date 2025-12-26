@@ -3,18 +3,17 @@ package com.example.demo.servlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 public class SimpleStatusServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.setStatus(200);
-        resp.setContentType("text/plain");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-        PrintWriter writer = resp.getWriter(); // may throw IOException (tested)
-        writer.write("Servlet Alive");
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.getWriter().write("OK");
     }
 }
