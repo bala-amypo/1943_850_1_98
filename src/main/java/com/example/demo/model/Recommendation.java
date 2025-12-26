@@ -1,32 +1,31 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
 import lombok.*;
-
+import jakarta.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder   
+@Builder
+@Entity
+@Table(name = "recommendations")
 public class Recommendation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private User user;
+    @ManyToOne private User user;
 
+    private LocalDateTime generatedAt;
     private String recommendedLessonIds;
     private String basisSnapshot;
-    private Double confidenceScore;
-    private LocalDateTime generatedAt;
+    private BigDecimal confidenceScore;
 
     @PrePersist
-    void onGenerate() {
-        generatedAt = LocalDateTime.now();
+    public void prePersist() {
+        this.generatedAt = LocalDateTime.now();
     }
 }

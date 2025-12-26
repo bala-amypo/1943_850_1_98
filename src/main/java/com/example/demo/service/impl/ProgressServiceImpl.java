@@ -1,48 +1,37 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.MicroLesson;
-import com.example.demo.model.Progress;
-import com.example.demo.model.User;
-import com.example.demo.repository.MicroLessonRepository;
-import com.example.demo.repository.ProgressRepository;
-import com.example.demo.repository.UserRepository;
-import com.example.demo.service.ProgressService;
-import org.springframework.stereotype.Service;
+import com.example.demo.model.*;
+import com.example.demo.repository.*;
 
 import java.util.List;
 
-@Service
-public class ProgressServiceImpl implements ProgressService {
+public class ProgressServiceImpl {
 
     private final ProgressRepository repo;
     private final UserRepository userRepo;
     private final MicroLessonRepository lessonRepo;
 
-    public ProgressServiceImpl(ProgressRepository repo,
-                               UserRepository userRepo,
-                               MicroLessonRepository lessonRepo) {
-        this.repo = repo;
-        this.userRepo = userRepo;
-        this.lessonRepo = lessonRepo;
+    public ProgressServiceImpl(ProgressRepository p, UserRepository u, MicroLessonRepository m) {
+        this.repo = p; this.userRepo = u; this.lessonRepo = m;
     }
 
-    @Override
-    public Progress recordProgress(Long userId, Long lessonId, Progress progress) {
-        User user = userRepo.findById(userId).orElseThrow();
-        MicroLesson lesson = lessonRepo.findById(lessonId).orElseThrow();
+    public Progress recordProgress(Long userId, Long lessonId, Progress p) {
+        User u = userRepo.findById(userId).orElseThrow(RuntimeException::new);
+        MicroLesson m = lessonRepo.findById(lessonId).orElseThrow(RuntimeException::new);
 
-        progress.setUser(user);
-        progress.setMicroLesson(lesson);
+        Progress existing = repo.findByUserIdAndMicroLessonId(userId, lessonId).orElse(null);
+        if (existing == null) {
+            p.setUser(u);
+            p.setMicroLesson(m);
+            return repo.save(p);
+        }
 
-        return repo.save(progress);
+        existing.setStatus(p.getStatus());
+        existing.setProgressPercent(p.getProgressPercent());
+        existing.setScore(p.getScore());
+        return repo.save(existing);
     }
 
-    @Override
-    public Progress getProgress(Long userId, Long lessonId) {
-        return repo.findByUserIdAndMicroLessonId(userId, lessonId).orElseThrow();
-    }
-
-    @Override
     public List<Progress> getUserProgress(Long userId) {
         return repo.findByUserIdOrderByLastAccessedAtDesc(userId);
     }

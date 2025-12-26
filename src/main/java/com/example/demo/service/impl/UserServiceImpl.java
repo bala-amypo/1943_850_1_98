@@ -1,26 +1,41 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.dto.AuthResponse;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
-import com.example.demo.service.UserService;
-import org.springframework.stereotype.Service;
+import com.example.demo.security.JwtUtil;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@Service
-public class UserServiceImpl implements UserService {
+import java.util.HashMap;
+
+public class UserServiceImpl {
 
     private final UserRepository repo;
+    private final BCryptPasswordEncoder encoder;
+    private final JwtUtil jwtUtil;
 
-    public UserServiceImpl(UserRepository repo) {
-        this.repo = repo;
+    public UserServiceImpl(UserRepository r, BCryptPasswordEncoder e, JwtUtil j) {
+        this.repo = r; this.encoder = e; this.jwtUtil = j;
     }
 
-    @Override
     public User register(User user) {
+        if (user == null) throw new RuntimeException("Invalid user");
+        if (repo.existsByEmail(user.getEmail())) throw new RuntimeException("Duplicate email");
+
+        user.setPassword(encoder.encode(user.getPassword()));
+        if (user.getRole() == null) user.setRole("LEARNER");
         return repo.save(user);
     }
 
-    @Override
-    public User login(String email, String password) {
-        return repo.findByEmail(email).orElseThrow();
+    public AuthResponse login(String email, String password) {
+        User u = repo.findByEmail(email).orElseThrow(RuntimeException::new);
+        if (!encoder.matches(password, u.getPassword())) throw new RuntimeException();
+
+        String token = jwtUtil.generateToken(new HashMap<>(), email);
+        return new AuthResponse(token, u.getId(), u.getEmail(), u.getRole());
+    }
+
+    public User findByEmail(String email) {
+        return repo.findByEmail(email).orElseThrow(RuntimeException::new);
     }
 }
