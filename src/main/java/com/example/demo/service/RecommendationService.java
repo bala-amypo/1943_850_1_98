@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Recommendation;
+import com.example.demo.entity.Recommendation;
 
 public interface RecommendationService {
 
