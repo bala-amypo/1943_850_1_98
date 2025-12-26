@@ -1,15 +1,14 @@
 package com.example.demo.model;
 
-import lombok.*;
 import jakarta.persistence.*;
-import java.time.LocalDate;
+import lombok.*;
 
-@Getter @Setter
+@Entity
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Entity
-@Table(name = "micro_lessons")
 public class MicroLesson {
 
     @Id
@@ -17,11 +16,10 @@ public class MicroLesson {
     private Long id;
 
     private String title;
-    private Integer durationMinutes;
-    private String contentType;
     private String difficulty;
+    private String contentType;
+    private Integer durationMinutes;
     private String tags;
-    private LocalDate publishDate;
 
     @ManyToOne
     private Course course;

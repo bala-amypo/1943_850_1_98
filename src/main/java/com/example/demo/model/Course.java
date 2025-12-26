@@ -1,16 +1,15 @@
 package com.example.demo.model;
 
-import lombok.*;
 import jakarta.persistence.*;
+import lombok.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
-@Getter @Setter
+@Entity
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Entity
-@Table(name = "courses")
 public class Course {
 
     @Id
@@ -19,14 +18,11 @@ public class Course {
 
     private String title;
     private String description;
-    private String category;
-    private LocalDateTime createdAt;
 
     @ManyToOne
     private User instructor;
 
-    @OneToMany(mappedBy = "course")
-    private List<MicroLesson> lessons;
+    private LocalDateTime createdAt;
 
     @PrePersist
     public void prePersist() {
