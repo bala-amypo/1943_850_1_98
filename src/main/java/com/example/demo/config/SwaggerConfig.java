@@ -19,7 +19,7 @@ public class SwaggerConfig {
                         .version("1.0")
                         .description("Demo Spring Boot API with Swagger"))
                 .servers(List.of(
-                        new Server().url("").description("Local Server")
+                        new Server().url("https://9244.408procr.amypo.ai/").description("Local Server")
                 ));
     }
 }
